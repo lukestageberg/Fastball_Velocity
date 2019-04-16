@@ -1,0 +1,574 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={How Does Velocity Affect Fastball Success?},
+            pdfauthor={Luke Stageberg},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{How Does Velocity Affect Fastball Success?}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Luke Stageberg}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{April 16, 2019}
+
+
+\begin{document}
+\maketitle
+
+Naming the dataset ``fb\_velo'' and importing it from my data folder in
+my Fastball\_Velocity folder
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fb_velo =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'../data/Fastball_Data.csv'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Creating a histogram to show what the average fastball velocity's were
+across the MLB in 2018
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(fb_velo}\OperatorTok{$}\NormalTok{velocity, }\DataTypeTok{breaks =} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+The first model created uses velocity as a predictor variable for
+batting average.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_velo_ba =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ ba }\OperatorTok{~}\StringTok{ }\NormalTok{velocity, }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_velo_ba)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ba ~ velocity, data = fb_velo)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.31658 -0.05239 -0.01085  0.02828  0.71671 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.870538   0.105564   8.247 7.04e-16 ***
+## velocity    -0.006281   0.001143  -5.495 5.33e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1039 on 769 degrees of freedom
+## Multiple R-squared:  0.03778,    Adjusted R-squared:  0.03653 
+## F-statistic: 30.19 on 1 and 769 DF,  p-value: 5.326e-08
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{velocity, }\DataTypeTok{y=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{ba, }\DataTypeTok{main=}\StringTok{"ba ~ velocity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+The second model created uses velocity as a predictor variable for
+sluggling percentage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_velo_slg =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ slg }\OperatorTok{~}\StringTok{ }\NormalTok{velocity, }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_velo_slg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = slg ~ velocity, data = fb_velo)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.5719 -0.1188 -0.0373  0.0641  3.5220 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.134433   0.257532   8.288 5.11e-16 ***
+## velocity    -0.017716   0.002789  -6.353 3.61e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.2535 on 769 degrees of freedom
+## Multiple R-squared:  0.04987,    Adjusted R-squared:  0.04863 
+## F-statistic: 40.36 on 1 and 769 DF,  p-value: 3.614e-10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{velocity, }\DataTypeTok{y=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{slg, }\DataTypeTok{main=}\StringTok{"slg ~ velocity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+The third model created uses spin rate as a predictor variable for
+batting average
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_spin_ba =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ ba }\OperatorTok{~}\StringTok{ }\NormalTok{spin_rate, }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_spin_ba)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ba ~ spin_rate, data = fb_velo)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.32858 -0.05143 -0.01143  0.02646  0.73491 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  5.114e-01  5.041e-02  10.146  < 2e-16 ***
+## spin_rate   -9.922e-05  2.261e-05  -4.388  1.3e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1046 on 769 degrees of freedom
+## Multiple R-squared:  0.02443,    Adjusted R-squared:  0.02316 
+## F-statistic: 19.26 on 1 and 769 DF,  p-value: 1.302e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{spin_rate, }\DataTypeTok{y=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{ba, }\DataTypeTok{main=}\StringTok{"ba ~ spin_rate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+The fourth model created uses spin rate as a predictor variable for
+sluggling percentage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_spin_slg =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ slg }\OperatorTok{~}\StringTok{ }\NormalTok{spin_rate, }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_spin_slg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = slg ~ spin_rate, data = fb_velo)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.5408 -0.1192 -0.0406  0.0610  3.5290 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  7.419e-01  1.250e-01   5.936 4.42e-09 ***
+## spin_rate   -1.091e-04  5.606e-05  -1.946    0.052 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.2594 on 769 degrees of freedom
+## Multiple R-squared:  0.0049, Adjusted R-squared:  0.003606 
+## F-statistic: 3.787 on 1 and 769 DF,  p-value: 0.05202
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{spin_rate, }\DataTypeTok{y=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{slg, }\DataTypeTok{main=}\StringTok{"slg ~ spin_rate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+The next step to produce another pair of models was to create a new
+varible that is the percentage of a swing and miss (dividing whiffs by
+swings). Any ``na'' in the data is replaced with ``0''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{swing_and_miss_pct =}\StringTok{ }\KeywordTok{with}\NormalTok{(fb_velo, whiffs }\OperatorTok{/}\StringTok{ }\NormalTok{swings)}
+\NormalTok{fb_velo[}\KeywordTok{is.na}\NormalTok{(fb_velo)] <-}\StringTok{ }\DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+The fifth model created uses velocity as a predictor variable for swing
+and miss percentage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_velo_swing_and_miss =}\StringTok{  }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ swing_and_miss_pct }\OperatorTok{~}\StringTok{ }\NormalTok{velocity, }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_velo_swing_and_miss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = swing_and_miss_pct ~ velocity, data = fb_velo)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.16230 -0.05512 -0.00920  0.04267  0.87870 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.4488132  0.0889291  -5.047 5.61e-07 ***
+## velocity     0.0063066  0.0009629   6.549 1.06e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.08753 on 769 degrees of freedom
+## Multiple R-squared:  0.05283,    Adjusted R-squared:  0.0516 
+## F-statistic: 42.89 on 1 and 769 DF,  p-value: 1.057e-10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{velocity, }\DataTypeTok{y=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{swing_and_miss_pct, }\DataTypeTok{main=}\StringTok{"swing_and_miss_pct ~ velocity"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+The sixth model created uses spin rate as a predictor variable for swing
+and miss percentage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_spin_swing_and_miss =}\StringTok{  }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ swing_and_miss_pct }\OperatorTok{~}\StringTok{ }\NormalTok{spin_rate, }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_spin_swing_and_miss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = swing_and_miss_pct ~ spin_rate, data = fb_velo)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.22513 -0.05061 -0.00761  0.04293  0.88686 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -2.102e-01  4.151e-02  -5.062 5.19e-07 ***
+## spin_rate    1.545e-04  1.862e-05   8.295 4.84e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.08616 on 769 degrees of freedom
+## Multiple R-squared:  0.08213,    Adjusted R-squared:  0.08094 
+## F-statistic: 68.81 on 1 and 769 DF,  p-value: 4.835e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scatter.smooth}\NormalTok{(}\DataTypeTok{x=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{spin_rate, }\DataTypeTok{y=}\NormalTok{fb_velo}\OperatorTok{$}\NormalTok{swing_and_miss_pct, }\DataTypeTok{main=}\StringTok{"swing_and_miss_pct ~ spin_rate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+The seventh model created uses velocity, spin rate, and total pitches as
+a predictor variable for batting average.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_velo_spin_ba =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ ba }\OperatorTok{~}\StringTok{ }\NormalTok{velocity }\OperatorTok{+}\StringTok{ }\NormalTok{spin_rate }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(}\KeywordTok{log}\NormalTok{(total_pitches)), }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_velo_spin_ba)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ba ~ velocity + spin_rate + I(log(total_pitches)), 
+##     data = fb_velo)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.39841 -0.04228  0.00004  0.03505  0.65259 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)            8.703e-01  1.025e-01   8.491  < 2e-16 ***
+## velocity              -3.449e-03  1.215e-03  -2.838  0.00466 ** 
+## spin_rate             -5.758e-05  2.345e-05  -2.456  0.01428 *  
+## I(log(total_pitches)) -2.118e-02  2.959e-03  -7.157 1.93e-12 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1003 on 767 degrees of freedom
+## Multiple R-squared:  0.1054, Adjusted R-squared:  0.1019 
+## F-statistic: 30.14 on 3 and 767 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{termplot}\NormalTok{(mod_velo_spin_ba,}\DataTypeTok{partial.resid =}\NormalTok{ T, }\DataTypeTok{se =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-23-1.pdf}
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-23-2.pdf}
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-23-3.pdf}
+
+The eighth model created uses velocity, spin rate, and total pitches as
+a predictor variable for slugging percentage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_velo_spin_slg =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ slg }\OperatorTok{~}\StringTok{ }\NormalTok{velocity }\OperatorTok{+}\StringTok{ }\NormalTok{spin_rate }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(}\KeywordTok{log}\NormalTok{(total_pitches)), }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_velo_spin_slg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = slg ~ velocity + spin_rate + I(log(total_pitches)), 
+##     data = fb_velo)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7665 -0.0982 -0.0034  0.0812  3.3032 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)            2.050e+00  2.492e-01   8.225 8.31e-16 ***
+## velocity              -1.379e-02  2.955e-03  -4.667 3.60e-06 ***
+## spin_rate              3.685e-05  5.701e-05   0.646    0.518    
+## I(log(total_pitches)) -5.724e-02  7.196e-03  -7.955 6.42e-15 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.2439 on 767 degrees of freedom
+## Multiple R-squared:  0.1225, Adjusted R-squared:  0.1191 
+## F-statistic:  35.7 on 3 and 767 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{termplot}\NormalTok{(mod_velo_spin_slg,}\DataTypeTok{partial.resid =}\NormalTok{ T, }\DataTypeTok{se =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-25-1.pdf}
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-25-2.pdf}
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-25-3.pdf}
+
+The ninth model created uses velocity, spin rate, and total pitches as a
+predictor variable for swing and miss percentage.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod_velo_spin_swing_and_miss =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ swing_and_miss_pct }\OperatorTok{~}\StringTok{ }\NormalTok{velocity }\OperatorTok{+}\StringTok{ }\NormalTok{spin_rate }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(}\KeywordTok{log}\NormalTok{(total_pitches)), }\DataTypeTok{data =}\NormalTok{ fb_velo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mod_velo_spin_swing_and_miss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = swing_and_miss_pct ~ velocity + spin_rate + I(log(total_pitches)), 
+##     data = fb_velo)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.19798 -0.05239 -0.01186  0.03870  0.94346 
+## 
+## Coefficients:
+##                         Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)           -4.837e-01  8.513e-02  -5.681 1.90e-08 ***
+## velocity               2.664e-03  1.009e-03   2.639  0.00849 ** 
+## spin_rate              1.229e-04  1.947e-05   6.310 4.70e-10 ***
+## I(log(total_pitches))  1.558e-02  2.458e-03   6.339 3.94e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.08331 on 767 degrees of freedom
+## Multiple R-squared:  0.144,  Adjusted R-squared:  0.1407 
+## F-statistic: 43.02 on 3 and 767 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{termplot}\NormalTok{(mod_velo_spin_swing_and_miss,}\DataTypeTok{partial.resid =}\NormalTok{ T, }\DataTypeTok{se =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-27-1.pdf}
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-27-2.pdf}
+\includegraphics{Fastball_Velocity_Final_files/figure-latex/unnamed-chunk-27-3.pdf}
+
+
+\end{document}

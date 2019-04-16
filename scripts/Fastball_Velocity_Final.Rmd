@@ -1,19 +1,23 @@
 ---
 title: "How Does Velocity Affect Fastball Success?"
 author: "Luke Stageberg"
-date: "March 25, 2019"
-output: html_document
+date: "April 16, 2019"
+output:
+  pdf_document: default
 ---
 
+Naming the dataset "fb_velo" and importing it from my data folder in my Fastball_Velocity folder
 ```{r}
-
-fb_velo = read.csv('./Fastball_Data.csv')
+fb_velo = read.csv('../data/Fastball_Data.csv')
 ```
 
+
+Creating a histogram to show what the average fastball velocity's were across the MLB in 2018
 ```{r}
 hist(fb_velo$velocity, breaks = 20)
 ```
 
+The first model created uses velocity as a predictor variable for batting average.
 ```{r}
 mod_velo_ba = lm(formula = ba ~ velocity, data = fb_velo)
 ```
@@ -26,6 +30,7 @@ summary(mod_velo_ba)
 scatter.smooth(x=fb_velo$velocity, y=fb_velo$ba, main="ba ~ velocity")
 ```
 
+The second model created uses velocity as a predictor variable for sluggling percentage.
 ```{r}
 mod_velo_slg = lm(formula = slg ~ velocity, data = fb_velo)
 ```
@@ -38,6 +43,7 @@ summary(mod_velo_slg)
 scatter.smooth(x=fb_velo$velocity, y=fb_velo$slg, main="slg ~ velocity")
 ```
 
+The third model created uses spin rate as a predictor variable for batting average
 ```{r}
 mod_spin_ba = lm(formula = ba ~ spin_rate, data = fb_velo)
 ```
@@ -50,6 +56,7 @@ summary(mod_spin_ba)
 scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$ba, main="ba ~ spin_rate")
 ```
 
+The fourth model created uses spin rate as a predictor variable for sluggling percentage.
 ```{r}
 mod_spin_slg = lm(formula = slg ~ spin_rate, data = fb_velo)
 ```
@@ -62,11 +69,13 @@ summary(mod_spin_slg)
 scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$slg, main="slg ~ spin_rate")
 ```
 
+The next step to produce another pair of models was to create a new varible that is the percentage of a swing and miss (dividing whiffs by swings). Any "na" in the data is replaced with "0"
 ```{r}
 fb_velo$swing_and_miss_pct = with(fb_velo, whiffs / swings)
 fb_velo[is.na(fb_velo)] <- 0
 ```
 
+The fifth model created uses velocity as a predictor variable for swing and miss percentage.
 ```{r}
 mod_velo_swing_and_miss =  lm(formula = swing_and_miss_pct ~ velocity, data = fb_velo)
 ```
@@ -79,6 +88,7 @@ summary(mod_velo_swing_and_miss)
 scatter.smooth(x=fb_velo$velocity, y=fb_velo$swing_and_miss_pct, main="swing_and_miss_pct ~ velocity")
 ```
 
+The sixth model created uses spin rate as a predictor variable for swing and miss percentage.
 ```{r}
 mod_spin_swing_and_miss =  lm(formula = swing_and_miss_pct ~ spin_rate, data = fb_velo)
 ```
@@ -91,6 +101,7 @@ summary(mod_spin_swing_and_miss)
 scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$swing_and_miss_pct, main="swing_and_miss_pct ~ spin_rate")
 ```
 
+The seventh model created uses velocity, spin rate, and total pitches as a predictor variable for batting average.
 ```{r}
 mod_velo_spin_ba = lm(formula = ba ~ velocity + spin_rate + I(log(total_pitches)), data = fb_velo)
 ```
@@ -100,6 +111,7 @@ summary(mod_velo_spin_ba)
 termplot(mod_velo_spin_ba,partial.resid = T, se = T)
 ```
 
+The eighth model created uses velocity, spin rate, and total pitches as a predictor variable for slugging percentage.
 ```{r}
 mod_velo_spin_slg = lm(formula = slg ~ velocity + spin_rate + I(log(total_pitches)), data = fb_velo)
 ```
@@ -110,7 +122,7 @@ termplot(mod_velo_spin_slg,partial.resid = T, se = T)
 ```
 
 
-
+The ninth model created uses velocity, spin rate, and total pitches as a predictor variable for swing and miss percentage.
 ```{r}
 mod_velo_spin_swing_and_miss = lm(formula = swing_and_miss_pct ~ velocity + spin_rate + I(log(total_pitches)), data = fb_velo)
 ```
