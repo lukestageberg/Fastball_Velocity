@@ -2,11 +2,14 @@
 
 Project Objective
 
-The objective of the project is to attempt to find out the numerical difference or indifference that fastball velocity has on a pitchers' success in the MLB. 
+The objective of the project is to attempt to find out the numerical difference or indifference that fastball velocity has on a pitchers' success in the MLB. Why would this matter? Pro scouts and college recruiters would take more consideration into numbers and current success instead of how projectable and their potential based on velocity and spin rates (or vice versa)
+
 
 Structure of the Code-Base
 
-The code contains a data file that is a 771 x 31 matrix. The code creates a histgram for a visual of average fastball velocity. Mulitple models are then constucted attempting to use velocity and spin rate as predictor variables for batting average, sluggling percentage, and swing-and-miss percentage. There are plots produced for each model for visual purposes.
+The code contains a data file that is a 771 x 31 matrix. The Rmarkdown file does all of the following: It creates a histgram for a visual of average fastball velocity. Mulitple models are then constucted attempting to use velocity and spin rate as predictor variables for batting average, sluggling percentage, and swing-and-miss percentage. There are plots produced for each model for visual purposes.
+
+There is also a pdf file of the Rmarkdown to allow the veiwer to see the model summaries and plots without downloading the dataset.
 
 How to Recreate Results
 
