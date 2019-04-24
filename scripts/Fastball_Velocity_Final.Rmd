@@ -4,6 +4,7 @@ author: "Luke Stageberg"
 date: "April 16, 2019"
 output:
   pdf_document: default
+  html_document: default
 ---
 
 Naming the dataset "fb_velo" and importing it from my data folder in my Fastball_Velocity folder
@@ -14,7 +15,7 @@ fb_velo = read.csv('../data/Fastball_Data.csv')
 
 Creating a histogram to show what the average fastball velocity's were across the MLB in 2018
 ```{r}
-hist(fb_velo$velocity, breaks = 20)
+hist(fb_velo$velocity, breaks = 20, main = "MLB Fastball Averages", xlab = "Pitchers' Average Velocity")
 ```
 
 The first model created uses velocity as a predictor variable for batting average.
@@ -27,7 +28,7 @@ summary(mod_velo_ba)
 ```
 
 ```{r}
-scatter.smooth(x=fb_velo$velocity, y=fb_velo$ba, main="ba ~ velocity")
+scatter.smooth(x=fb_velo$velocity, y=fb_velo$ba, main="BA ~ Velocity", xlab="Average Velocity", ylab="Batting Average")
 ```
 
 The second model created uses velocity as a predictor variable for sluggling percentage.
@@ -40,7 +41,7 @@ summary(mod_velo_slg)
 ```
 
 ```{r}
-scatter.smooth(x=fb_velo$velocity, y=fb_velo$slg, main="slg ~ velocity")
+scatter.smooth(x=fb_velo$velocity, y=fb_velo$slg, main="SLG ~ Velocity", xlab="Average Velocity", ylab="Slugging Percentage")
 ```
 
 The third model created uses spin rate as a predictor variable for batting average
@@ -53,7 +54,7 @@ summary(mod_spin_ba)
 ```
 
 ```{r}
-scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$ba, main="ba ~ spin_rate")
+scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$ba, main="BA ~ Spin Rate", xlab="Average Spin Rate", ylab="Batting Average")
 ```
 
 The fourth model created uses spin rate as a predictor variable for sluggling percentage.
@@ -66,7 +67,7 @@ summary(mod_spin_slg)
 ```
 
 ```{r}
-scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$slg, main="slg ~ spin_rate")
+scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$slg, main="SLG ~ Spin Rate", xlab="Average Spin Rate", ylab="Slugging Percentage")
 ```
 
 The next step to produce another pair of models was to create a new varible that is the percentage of a swing and miss (dividing whiffs by swings). Any "na" in the data is replaced with "0"
@@ -85,7 +86,7 @@ summary(mod_velo_swing_and_miss)
 ```
 
 ```{r}
-scatter.smooth(x=fb_velo$velocity, y=fb_velo$swing_and_miss_pct, main="swing_and_miss_pct ~ velocity")
+scatter.smooth(x=fb_velo$velocity, y=fb_velo$swing_and_miss_pct, main="Swing-and-miss Percentage ~ Velocity", xlab="Average Velocity", ylab="Swing-and-miss Percentage")
 ```
 
 The sixth model created uses spin rate as a predictor variable for swing and miss percentage.
@@ -98,7 +99,7 @@ summary(mod_spin_swing_and_miss)
 ```
 
 ```{r}
-scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$swing_and_miss_pct, main="swing_and_miss_pct ~ spin_rate")
+scatter.smooth(x=fb_velo$spin_rate, y=fb_velo$swing_and_miss_pct, main="Swing-and-miss Percentage ~ Spin Rate", xlab="Average Spin Rate", ylab="Swing-and-miss Percentage")
 ```
 
 The seventh model created uses velocity, spin rate, and total pitches as a predictor variable for batting average.
